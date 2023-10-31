@@ -1,42 +1,55 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const BASE_URL = "http://localhost:3001";
+
+const Login = ({ setToken }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
+    password: "",
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Make a network request or update the local state
-    // using the form data
+    axios
+      .post(`${BASE_URL}/login`, formData)
+      .then((res) => {
+        console.log(res);
+        setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
+        navigate("/", { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
-        placeholder="Name"
-        value={formData.name}
-        onChange={(event) =>
-          setFormData({ ...formData, name: event.target.value })
-        }
-      />
-      <input
         type="email"
         placeholder="Email"
         value={formData.email}
+        required
         onChange={(event) =>
           setFormData({ ...formData, email: event.target.value })
         }
       />
+      <input
+        type="password"
+        placeholder="Password"
+        value={formData.password}
+        required
+        onChange={(event) =>
+          setFormData({ ...formData, password: event.target.value })
+        }
+      />
       <button type="submit">Submit</button>
-      <Link to="/register">
-        <Navigate replace={true} />
-        Already have an account.
-      </Link>
+      <Link to="/register">Create a new account.</Link>
     </form>
   );
 };

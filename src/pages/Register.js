@@ -1,9 +1,14 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+const BASE_URL = "http://localhost:3001";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     theme: "light",
@@ -12,24 +17,39 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Make a network request or update the local state
-    // using the form data
+    axios
+      .post(`${BASE_URL}/register`, formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/login", { replace: true });
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          theme: "light",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Name"
-        value={formData.name}
+        placeholder="Userame"
+        value={formData.username}
+        required
         onChange={(event) =>
-          setFormData({ ...formData, name: event.target.value })
+          setFormData({ ...formData, username: event.target.value })
         }
       />
       <input
         type="email"
         placeholder="Email"
         value={formData.email}
+        required
         onChange={(event) =>
           setFormData({ ...formData, email: event.target.value })
         }
@@ -38,15 +58,13 @@ const Register = () => {
         type="password"
         placeholder="Password"
         value={formData.password}
+        required
         onChange={(event) =>
           setFormData({ ...formData, password: event.target.value })
         }
       />
       <button type="submit">Submit</button>
-      <Link to="/login">
-        <Navigate replace={true} />
-        Create a new account.
-      </Link>
+      <Link to="/login">Already have an account.</Link>
     </form>
   );
 };

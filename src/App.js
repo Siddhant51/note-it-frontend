@@ -5,19 +5,25 @@ import Home from "./pages/Home";
 import { useState } from "react";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
 
   const Layout = () => {
-    return user ? <Outlet /> : <Navigate to="/login" replace={true} />;
+    return token ? <Outlet /> : <Navigate to="/login" replace={true} />;
   };
 
   return (
     <div className="App">
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Home token={token} setToken={setToken} />}
+          />
         </Route>
-        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route
+          path="/login"
+          element={<Login token={token} setToken={setToken} />}
+        />
         <Route path="/register" element={<Register />} />
       </Routes>
     </div>
