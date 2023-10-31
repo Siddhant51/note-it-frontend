@@ -1,10 +1,11 @@
 import Modal from "react-modal";
 import Create from "./Create";
 
-const CreateModal = ({ isOpen, onClose }) => {
+const CreateModal = ({ isOpen, onClose, token }) => {
   return (
     <Modal
       isOpen={isOpen}
+      appElement={document.querySelector("#root")}
       onRequestClose={onClose}
       style={{
         overlay: {
@@ -28,7 +29,7 @@ const CreateModal = ({ isOpen, onClose }) => {
       }}
     >
       <h1>Create a new item</h1>
-      <Create />
+      <Create token={token} onClose={onClose} />
     </Modal>
   );
 };

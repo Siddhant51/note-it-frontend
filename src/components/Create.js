@@ -8,7 +8,7 @@ const colors = {
   task: "blue",
 };
 
-const Create = () => {
+const Create = ({ token, onClose }) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -20,16 +20,26 @@ const Create = () => {
 
     // Submit the form data with the color from the type-to-color mapping
     axios
-      .post(`${BASE_URL}/create`, {
-        ...formData,
-        color: colors[formData.type],
-      })
+      .post(
+        `${BASE_URL}/create`,
+        {
+          ...formData,
+          color: colors[formData.type],
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then((res) => {
         setFormData({
           title: "",
           content: "",
           type: "",
         });
+        onClose();
+        console.log("Note Created...");
       })
       .catch((err) => {
         console.log(err);

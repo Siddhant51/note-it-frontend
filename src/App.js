@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import { useState } from "react";
+import Create from "./components/Create";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -19,6 +20,7 @@ function App() {
             path="/"
             element={<Home token={token} setToken={setToken} />}
           />
+          <Route path="/create" element={<Create token={token} />} />
         </Route>
         <Route
           path="/login"
