@@ -1,16 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CreateModal from "../components/CreateModal";
+import Topbar from "../components/Topbar";
 import { useNavigate } from "react-router-dom";
-const history = window.history;
+import Sidebar from "../components/Sidebar";
 
 const BASE_URL = "http://localhost:3001";
+
+const colors = {
+  note: "red",
+  task: "blue",
+};
 
 const Home = ({ token, setToken }) => {
   const navigate = useNavigate();
 
   const [notes, setNotes] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -28,28 +32,22 @@ const Home = ({ token, setToken }) => {
       });
   }, []);
 
-  const openModal = () => {
-    setIsOpen(true);
-    history.pushState({}, null, "/create");
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-    navigate(-1);
-  };
-
   return (
-    <div>
+    <>
+      <Topbar />
+      <Sidebar />
       {notes?.map((note) => (
-        <div key={note.id}>
-          {note.title}
-          {note.content}
+        <div
+          key={note._id}
+          onClick={() => navigate(`/update/${note._id}`)}
+          style={{ backgroundColor: colors[note.type] || "gray" }}
+        >
+          <strong>{note.title}</strong>
+          <p>{note.content}</p>
         </div>
       ))}
-      <button onClick={openModal}>Create New Item</button>
-      <CreateModal isOpen={isOpen} onClose={closeModal} token={token} />
-      Home
-    </div>
+      <button onClick={() => navigate("/create")}>Create</button>
+    </>
   );
 };
 
