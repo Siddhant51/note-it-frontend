@@ -87,7 +87,10 @@ const Update = ({ token }) => {
     <>
       <Topbar />
       <Sidebar />
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        style={{ backgroundColor: colors[formData.type] || "gray" }}
+      >
         <select
           value={formData.type}
           onChange={(event) =>
