@@ -11,7 +11,7 @@ const colors = {
   task: "blue",
 };
 
-const Create = ({ token }) => {
+const Create = ({ token, closeModal }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -43,7 +43,8 @@ const Create = ({ token }) => {
           type: "",
         });
         console.log("Note Created...");
-        navigate("/", { replace: true });
+        // navigate("/", { replace: true });
+        closeModal();
       })
       .catch((err) => {
         console.log(err);

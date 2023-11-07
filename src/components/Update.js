@@ -11,10 +11,10 @@ const colors = {
   task: "blue",
 };
 
-const Update = ({ token }) => {
+const Update = ({ token, noteId, closeModal }) => {
   const navigate = useNavigate();
 
-  const { noteId } = useParams();
+  // const { noteId } = useParams();
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -58,7 +58,8 @@ const Update = ({ token }) => {
       )
       .then((res) => {
         console.log("Note Updated...");
-        navigate("/", { replace: true });
+        // navigate("/", { replace: true });
+        closeModal();
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +76,8 @@ const Update = ({ token }) => {
         })
         .then((res) => {
           console.log("Note Deleted...");
-          navigate("/", { replace: true });
+          // navigate("/", { replace: true });
+          closeModal();
         })
         .catch((err) => {
           console.log(err);
