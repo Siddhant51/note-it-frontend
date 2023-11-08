@@ -5,7 +5,7 @@ import Create from "../components/Create";
 import Update from "../components/Update";
 import ReactModal from "react-modal";
 import axios from "axios";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -15,8 +15,6 @@ const colors = {
 };
 
 const Home = ({ token, setToken }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const { type } = useParams();
 
   const [notes, setNotes] = useState([]);
@@ -68,7 +66,7 @@ const Home = ({ token, setToken }) => {
 
   return (
     <>
-      <Topbar openCreateModal={openCreateModal} />
+      <Topbar setToken={setToken} openCreateModal={openCreateModal} />
       <Sidebar token={token} />
       {filteredNotes.map((note) => (
         <div

@@ -31,9 +31,11 @@ const Sidebar = ({ token }) => {
 
   return (
     <div>
-      <div onClick={() => navigate("/")}>All Notes ({totalNotesCount})</div>
+      <div onClick={() => navigate("/", { replace: true })}>
+        All Notes ({totalNotesCount})
+      </div>
       {noteTypes.map((type) => (
-        <div onClick={() => navigate(`/notes/${type._id}`)}>
+        <div onClick={() => navigate(`/notes/${type._id}`, { replace: true })}>
           {type._id} ({type.count})
         </div>
       ))}
