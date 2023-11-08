@@ -3,12 +3,7 @@ import { useEffect, useState } from "react";
 
 const BASE_URL = "http://localhost:3001";
 
-const colors = {
-  note: "red",
-  task: "blue",
-};
-
-const Update = ({ token, noteId, closeModal, fetchNotes }) => {
+const Update = ({ token, noteId, closeModal, fetchNotes, setModalType }) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -81,15 +76,13 @@ const Update = ({ token, noteId, closeModal, fetchNotes }) => {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-        style={{ backgroundColor: colors[formData.type] || "gray" }}
-      >
+      <form onSubmit={handleSubmit}>
         <select
           value={formData.type}
-          onChange={(event) =>
-            setFormData({ ...formData, type: event.target.value })
-          }
+          onChange={(event) => {
+            setFormData({ ...formData, type: event.target.value });
+            setModalType(event.target.value || "");
+          }}
         >
           <option value="">Select type</option>
           <option value="note">Note</option>
@@ -100,7 +93,6 @@ const Update = ({ token, noteId, closeModal, fetchNotes }) => {
           placeholder="Title"
           value={formData.title}
           required
-          style={{ backgroundColor: colors[formData.type] }}
           onChange={(event) =>
             setFormData({ ...formData, title: event.target.value })
           }
@@ -109,7 +101,6 @@ const Update = ({ token, noteId, closeModal, fetchNotes }) => {
           type="text"
           placeholder="Content"
           value={formData.content}
-          style={{ backgroundColor: colors[formData.type] }}
           onChange={(event) =>
             setFormData({ ...formData, content: event.target.value })
           }

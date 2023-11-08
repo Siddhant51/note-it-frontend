@@ -21,6 +21,7 @@ const Home = ({ token, setToken }) => {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
   const [selectedNote, setSelectedNote] = useState(null);
+  const [modalType, setModalType] = useState("");
 
   const openCreateModal = () => {
     setCreateModalOpen(true);
@@ -71,7 +72,10 @@ const Home = ({ token, setToken }) => {
       {filteredNotes.map((note) => (
         <div
           key={note._id}
-          onClick={() => openUpdateModal(note._id)}
+          onClick={() => {
+            openUpdateModal(note._id);
+            setModalType(note.type);
+          }}
           style={{ backgroundColor: colors[note.type] || "gray" }}
         >
           <strong>{note.title}</strong>
@@ -82,12 +86,14 @@ const Home = ({ token, setToken }) => {
         isOpen={isCreateModalOpen || isUpdateModalOpen}
         onRequestClose={isUpdateModalOpen ? closeUpdateModal : closeCreateModal}
         contentLabel="Create or Update Note"
+        style={{ content: { backgroundColor: colors[modalType] || "gray" } }}
       >
         {isCreateModalOpen ? (
           <Create
             token={token}
             closeModal={closeCreateModal}
             fetchNotes={fetchNotes}
+            setModalType={setModalType}
           />
         ) : isUpdateModalOpen ? (
           <Update
@@ -95,6 +101,7 @@ const Home = ({ token, setToken }) => {
             noteId={selectedNote}
             closeModal={closeUpdateModal}
             fetchNotes={fetchNotes}
+            setModalType={setModalType}
           />
         ) : null}
       </ReactModal>
