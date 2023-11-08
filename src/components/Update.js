@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Topbar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -83,8 +81,6 @@ const Update = ({ token, noteId, closeModal, fetchNotes }) => {
 
   return (
     <>
-      {/* <Topbar />
-      <Sidebar /> */}
       <form
         onSubmit={handleSubmit}
         style={{ backgroundColor: colors[formData.type] || "gray" }}

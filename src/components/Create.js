@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import Topbar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -40,7 +38,6 @@ const Create = ({ token, closeModal, fetchNotes }) => {
           type: "",
         });
         console.log("Note Created...");
-        // navigate("/", { replace: true });
         fetchNotes();
         closeModal();
       })
@@ -51,8 +48,6 @@ const Create = ({ token, closeModal, fetchNotes }) => {
 
   return (
     <>
-      {/* <Topbar />
-      <Sidebar /> */}
       <form
         onSubmit={handleSubmit}
         style={{ backgroundColor: colors[formData.type] || "gray" }}
