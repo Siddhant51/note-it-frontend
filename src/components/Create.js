@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import Topbar from "../components/Topbar";
 import Sidebar from "../components/Sidebar";
-import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -11,9 +10,7 @@ const colors = {
   task: "blue",
 };
 
-const Create = ({ token, closeModal }) => {
-  const navigate = useNavigate();
-
+const Create = ({ token, closeModal, fetchNotes }) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -44,6 +41,7 @@ const Create = ({ token, closeModal }) => {
         });
         console.log("Note Created...");
         // navigate("/", { replace: true });
+        fetchNotes();
         closeModal();
       })
       .catch((err) => {
@@ -53,8 +51,8 @@ const Create = ({ token, closeModal }) => {
 
   return (
     <>
-      <Topbar />
-      <Sidebar />
+      {/* <Topbar />
+      <Sidebar /> */}
       <form
         onSubmit={handleSubmit}
         style={{ backgroundColor: colors[formData.type] || "gray" }}

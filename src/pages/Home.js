@@ -1,11 +1,11 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Topbar from "../components/Topbar";
-import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Create from "../components/Create";
 import Update from "../components/Update";
 import ReactModal from "react-modal";
+import axios from "axios";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -16,6 +16,8 @@ const colors = {
 
 const Home = ({ token, setToken }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type } = useParams();
 
   const [notes, setNotes] = useState([]);
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
@@ -40,7 +42,7 @@ const Home = ({ token, setToken }) => {
     setUpdateModalOpen(false);
   };
 
-  useEffect(() => {
+  const fetchNotes = async () => {
     axios
       .get(`${BASE_URL}/notes`, {
         headers: {
@@ -48,19 +50,27 @@ const Home = ({ token, setToken }) => {
         },
       })
       .then((res) => {
-        console.log(res);
         setNotes(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [closeCreateModal, closeUpdateModal]);
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, [token]);
+
+  // Filter notes based on the 'type' parameter
+  const filteredNotes = type
+    ? notes.filter((note) => note.type === type)
+    : notes;
 
   return (
     <>
-      <Topbar />
-      <Sidebar />
-      {notes?.map((note) => (
+      <Topbar openCreateModal={openCreateModal} />
+      <Sidebar token={token} />
+      {filteredNotes.map((note) => (
         <div
           key={note._id}
           onClick={() => openUpdateModal(note._id)}
@@ -70,19 +80,23 @@ const Home = ({ token, setToken }) => {
           <p>{note.content}</p>
         </div>
       ))}
-      <button onClick={openCreateModal}>Create</button>
       <ReactModal
         isOpen={isCreateModalOpen || isUpdateModalOpen}
         onRequestClose={isUpdateModalOpen ? closeUpdateModal : closeCreateModal}
         contentLabel="Create or Update Note"
       >
         {isCreateModalOpen ? (
-          <Create token={token} closeModal={closeCreateModal} />
+          <Create
+            token={token}
+            closeModal={closeCreateModal}
+            fetchNotes={fetchNotes}
+          />
         ) : isUpdateModalOpen ? (
           <Update
             token={token}
             noteId={selectedNote}
             closeModal={closeUpdateModal}
+            fetchNotes={fetchNotes}
           />
         ) : null}
       </ReactModal>

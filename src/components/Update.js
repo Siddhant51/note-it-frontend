@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Topbar from "../components/Topbar";
 import Sidebar from "../components/Sidebar";
-import { useNavigate, useParams } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
@@ -11,10 +10,7 @@ const colors = {
   task: "blue",
 };
 
-const Update = ({ token, noteId, closeModal }) => {
-  const navigate = useNavigate();
-
-  // const { noteId } = useParams();
+const Update = ({ token, noteId, closeModal, fetchNotes }) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -58,7 +54,7 @@ const Update = ({ token, noteId, closeModal }) => {
       )
       .then((res) => {
         console.log("Note Updated...");
-        // navigate("/", { replace: true });
+        fetchNotes();
         closeModal();
       })
       .catch((err) => {
@@ -76,7 +72,7 @@ const Update = ({ token, noteId, closeModal }) => {
         })
         .then((res) => {
           console.log("Note Deleted...");
-          // navigate("/", { replace: true });
+          fetchNotes();
           closeModal();
         })
         .catch((err) => {
@@ -87,8 +83,8 @@ const Update = ({ token, noteId, closeModal }) => {
 
   return (
     <>
-      <Topbar />
-      <Sidebar />
+      {/* <Topbar />
+      <Sidebar /> */}
       <form
         onSubmit={handleSubmit}
         style={{ backgroundColor: colors[formData.type] || "gray" }}

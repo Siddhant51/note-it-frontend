@@ -19,6 +19,10 @@ function App() {
             path="/"
             element={<Home token={token} setToken={setToken} />}
           />
+          <Route
+            path="/notes/:type"
+            element={<Home token={token} setToken={setToken} />}
+          />
         </Route>
         <Route
           path="/login"
