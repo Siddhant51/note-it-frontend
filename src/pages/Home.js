@@ -6,29 +6,30 @@ import Update from "../components/Update";
 import ReactModal from "react-modal";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import "../styles.css";
 
 const BASE_URL = "http://localhost:3001";
 
-const colors = {
-  Personal: "#6a0215",
-  Study: "#7E3110",
-  Other: "#004540",
-  Fitness: "#032C4D",
-  Finance: "#691048",
-  Background: "#181818",
-  Theme: "#0e0e0e",
-  Font: "#ffffff",
-};
 // const colors = {
-//   Personal: "#F69C9D",
-//   Study: "#FFC877",
-//   Other: "#BBD8D1",
-//   Fitness: "#9AC197",
-//   Finance: "#F7B9A1",
-//   Background: "#F8F9FA",
-//   Theme: "#6f8398",
-//   Font: "black",
+//   Personal: "#f43f5e",
+//   Study: "#3b82f6",
+//   Other: "#22c55e",
+//   Fitness: "#ffcc29",
+//   Finance: "#8b45f7",
+//   Background: "#212121",
+//   Theme: "#212121",
+//   Font: "#ffffff",
 // };
+const colors = {
+  Personal: "#f43f5e",
+  Study: "#3b82f6",
+  Other: "#22c55e",
+  Fitness: "#ffcc29",
+  Finance: "#8b45f7",
+  Background: "#e8e8e8",
+  Theme: "#e8e8e8",
+  Font: "black",
+};
 
 const Home = ({ token, setToken }) => {
   const { type } = useParams();
@@ -89,10 +90,10 @@ const Home = ({ token, setToken }) => {
       <Topbar
         setToken={setToken}
         openCreateModal={openCreateModal}
-        color={colors["Theme"]}
+        colors={colors}
       />
       <div class="container">
-        <Sidebar token={token} />
+        <Sidebar token={token} colors={colors} />
         <main>
           {filteredNotes.map((note) => (
             <div

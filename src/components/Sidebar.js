@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
-const Sidebar = ({ token, color }) => {
+const Sidebar = ({ token, colors }) => {
   const navigate = useNavigate();
 
   const [noteTypes, setNoteTypes] = useState([]);
@@ -40,6 +40,7 @@ const Sidebar = ({ token, color }) => {
       {noteTypes.map((type) => (
         <div
           className="button"
+          // style={{ backgroundColor: colors[type._id] }}
           onClick={() =>
             navigate(`/notes/${type._id}`, {
               replace: true,

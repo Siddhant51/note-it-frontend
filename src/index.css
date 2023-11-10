@@ -69,7 +69,14 @@
   justify-content: space-between;
   padding: 2vh;
   border-bottom: 1px solid #393E46;
+  cursor: pointer;
+  transition: 400ms;
 }
+.sidebar .button:hover {
+  background-color: var(--Personal) !important;
+  transition: transform 0.5s ease-in-out; /* This will create a smooth transition from right to left. */
+}
+
 main {
   display: flex;
   /* justify-content: space-between; */
@@ -84,11 +91,24 @@ main::-webkit-scrollbar {
 }
 
 .note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
   max-width: 400px;
   margin: 10px;
-  border-radius: 10px;
-  /* box-shadow: 5px 5px 5px #424242; */
+  cursor: pointer;
+  transition: 400ms;
 }
+.note:hover {
+  transform: scale(1.1, 1.1);
+  filter: none;
+}
+main:hover .note:not(:hover){
+  transform: scale(0.9, 0.9);
+}
+
 @media (max-width: 800px) {
   main{
     justify-content: center;
