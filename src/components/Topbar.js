@@ -1,15 +1,17 @@
 import React from "react";
 
-const Topbar = ({ openCreateModal, setToken }) => {
+const Topbar = ({ openCreateModal, setToken, color }) => {
   return (
-    <div className="topbar">
-      <p>Your App Title</p>
-      <button onClick={openCreateModal} className="create-button">
-        Create
-      </button>
-      <button onClick={() => setToken()} className="create-button">
-        Logout
-      </button>
+    <div className="topbar" style={{ backgroundColor: color }}>
+      <div className="title">NoteIt</div>
+      <div className="buttons">
+        <div onClick={openCreateModal} className="create-button">
+          Add New Note
+        </div>
+        <div onClick={() => setToken()} className="logout-button">
+          Logout
+        </div>
+      </div>
     </div>
   );
 };

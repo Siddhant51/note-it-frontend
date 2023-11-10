@@ -10,9 +10,25 @@ import { useParams } from "react-router-dom";
 const BASE_URL = "http://localhost:3001";
 
 const colors = {
-  note: "red",
-  task: "blue",
+  Personal: "#6a0215",
+  Study: "#7E3110",
+  Other: "#004540",
+  Fitness: "#032C4D",
+  Finance: "#691048",
+  Background: "#181818",
+  Theme: "#0e0e0e",
+  Font: "#ffffff",
 };
+// const colors = {
+//   Personal: "#F69C9D",
+//   Study: "#FFC877",
+//   Other: "#BBD8D1",
+//   Fitness: "#9AC197",
+//   Finance: "#F7B9A1",
+//   Background: "#F8F9FA",
+//   Theme: "#6f8398",
+//   Font: "black",
+// };
 
 const Home = ({ token, setToken }) => {
   const { type } = useParams();
@@ -66,27 +82,44 @@ const Home = ({ token, setToken }) => {
     : notes;
 
   return (
-    <>
-      <Topbar setToken={setToken} openCreateModal={openCreateModal} />
-      <Sidebar token={token} />
-      {filteredNotes.map((note) => (
-        <div
-          key={note._id}
-          onClick={() => {
-            openUpdateModal(note._id);
-            setModalType(note.type);
-          }}
-          style={{ backgroundColor: colors[note.type] || "gray" }}
-        >
-          <strong>{note.title}</strong>
-          <p>{note.content}</p>
-        </div>
-      ))}
+    <div
+      className="home"
+      style={{ backgroundColor: colors["Background"], color: colors["Font"] }}
+    >
+      <Topbar
+        setToken={setToken}
+        openCreateModal={openCreateModal}
+        color={colors["Theme"]}
+      />
+      <div class="container">
+        <Sidebar token={token} />
+        <main>
+          {filteredNotes.map((note) => (
+            <div
+              className="note"
+              key={note._id}
+              onClick={() => {
+                openUpdateModal(note._id);
+                setModalType(note.type);
+              }}
+              style={{ backgroundColor: colors[note.type] }}
+            >
+              <strong>{note.title}</strong>
+              <p>{note.content}</p>
+            </div>
+          ))}
+        </main>
+      </div>
       <ReactModal
         isOpen={isCreateModalOpen || isUpdateModalOpen}
         onRequestClose={isUpdateModalOpen ? closeUpdateModal : closeCreateModal}
         contentLabel="Create or Update Note"
-        style={{ content: { backgroundColor: colors[modalType] || "gray" } }}
+        className="Modal"
+        style={{
+          content: {
+            backgroundColor: colors[modalType],
+          },
+        }}
       >
         {isCreateModalOpen ? (
           <Create
@@ -105,7 +138,7 @@ const Home = ({ token, setToken }) => {
           />
         ) : null}
       </ReactModal>
-    </>
+    </div>
   );
 };
 

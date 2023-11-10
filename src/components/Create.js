@@ -7,7 +7,7 @@ const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    type: "",
+    type: "Other",
   });
 
   const handleSubmit = (event) => {
@@ -51,9 +51,11 @@ const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
             setModalType(event.target.value || "");
           }}
         >
-          <option value="">Select type</option>
-          <option value="note">Note</option>
-          <option value="task">Task</option>
+          <option value="Other">Select type</option>
+          <option value="Study">Study</option>
+          <option value="Personal">Personal</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Finance">Finance</option>
         </select>
         <input
           type="text"

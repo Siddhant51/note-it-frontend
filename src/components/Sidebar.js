@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "http://localhost:3001";
 
-const Sidebar = ({ token }) => {
+const Sidebar = ({ token, color }) => {
   const navigate = useNavigate();
 
   const [noteTypes, setNoteTypes] = useState([]);
   const [totalNotesCount, setTotalNotesCount] = useState(0);
 
-  useEffect(() => {
+  const noteCount = () => {
     axios
       .get(`${BASE_URL}/note-count`, {
         headers: {
@@ -27,16 +27,26 @@ const Sidebar = ({ token }) => {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    noteCount();
   }, [token]);
 
   return (
-    <div>
-      <div onClick={() => navigate("/", { replace: true })}>
-        All Notes ({totalNotesCount})
+    <div className="sidebar">
+      <div className="button" onClick={() => navigate("/", { replace: true })}>
+        <p>All Notes</p> <p>({totalNotesCount})</p>
       </div>
       {noteTypes.map((type) => (
-        <div onClick={() => navigate(`/notes/${type._id}`, { replace: true })}>
-          {type._id} ({type.count})
+        <div
+          className="button"
+          onClick={() =>
+            navigate(`/notes/${type._id}`, {
+              replace: true,
+            })
+          }
+        >
+          <p>{type._id}</p> <p>({type.count})</p>
         </div>
       ))}
     </div>
