@@ -1,9 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MdDeleteForever } from "react-icons/md";
+import { TiTick } from "react-icons/ti";
 
 const BASE_URL = "http://localhost:3001";
 
-const Update = ({ token, noteId, closeModal, fetchNotes, setModalType }) => {
+const Update = ({
+  token,
+  noteId,
+  closeModal,
+  fetchNotes,
+  setModalType,
+  notecount,
+  theme,
+}) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -47,8 +57,9 @@ const Update = ({ token, noteId, closeModal, fetchNotes, setModalType }) => {
       )
       .then((res) => {
         console.log("Note Updated...");
-        fetchNotes();
         closeModal();
+        notecount();
+        fetchNotes();
       })
       .catch((err) => {
         console.log(err);
@@ -75,9 +86,14 @@ const Update = ({ token, noteId, closeModal, fetchNotes, setModalType }) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <div className={theme == "Dark" ? "light-input" : "dark-input"}>
         <select
+          className={
+            theme == "Dark"
+              ? "light-borders Transparent"
+              : "dark-borders Transparent"
+          }
           value={formData.type}
           onChange={(event) => {
             setFormData({ ...formData, type: event.target.value });
@@ -91,6 +107,11 @@ const Update = ({ token, noteId, closeModal, fetchNotes, setModalType }) => {
           <option value="Finance">Finance</option>
         </select>
         <input
+          className={
+            theme == "Dark"
+              ? "light-borders Transparent"
+              : "dark-borders Transparent"
+          }
           type="text"
           placeholder="Title"
           value={formData.title}
@@ -99,18 +120,32 @@ const Update = ({ token, noteId, closeModal, fetchNotes, setModalType }) => {
             setFormData({ ...formData, title: event.target.value })
           }
         />
-        <input
+        <textarea
+          className={
+            theme == "Dark"
+              ? "light-borders Transparent"
+              : "dark-borders Transparent"
+          }
           type="text"
           placeholder="Content"
           value={formData.content}
+          required
           onChange={(event) =>
             setFormData({ ...formData, content: event.target.value })
           }
         />
-        <button onClick={handleDelete}>Delete</button>
-        <button type="submit">Save</button>
-      </form>
-    </>
+      </div>
+      <div className="buttons">
+        <MdDeleteForever
+          className={theme == "Dark" ? `btn-light` : `btn-dark`}
+          onClick={handleDelete}
+        />
+        <TiTick
+          className={theme == "Dark" ? `btn-light` : `btn-dark`}
+          type="submit"
+        />
+      </div>
+    </form>
   );
 };
 

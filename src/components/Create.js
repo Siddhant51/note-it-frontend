@@ -1,9 +1,17 @@
 import axios from "axios";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
 
 const BASE_URL = "http://localhost:3001";
 
-const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
+const Create = ({
+  token,
+  closeModal,
+  fetchNotes,
+  setModalType,
+  noteCount,
+  theme,
+}) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -33,8 +41,9 @@ const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
           type: "",
         });
         console.log("Note Created...");
-        fetchNotes();
         closeModal();
+        noteCount();
+        fetchNotes();
       })
       .catch((err) => {
         console.log(err);
@@ -42,9 +51,14 @@ const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <div className={theme == "Dark" ? "light-input" : "dark-input"}>
         <select
+          className={
+            theme == "Dark"
+              ? "light-borders Transparent"
+              : "dark-borders Transparent"
+          }
           value={formData.type}
           onChange={(event) => {
             setFormData({ ...formData, type: event.target.value });
@@ -58,6 +72,11 @@ const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
           <option value="Finance">Finance</option>
         </select>
         <input
+          className={
+            theme == "Dark"
+              ? "light-borders Transparent"
+              : "dark-borders Transparent"
+          }
           type="text"
           placeholder="Title"
           value={formData.title}
@@ -66,17 +85,28 @@ const Create = ({ token, closeModal, fetchNotes, setModalType }) => {
             setFormData({ ...formData, title: event.target.value })
           }
         />
-        <input
+        <textarea
+          className={
+            theme == "Dark"
+              ? "light-borders Transparent"
+              : "dark-borders Transparent"
+          }
           type="text"
           placeholder="Content"
           value={formData.content}
+          required
           onChange={(event) =>
             setFormData({ ...formData, content: event.target.value })
           }
         />
-        <button type="submit">Submit</button>
-      </form>
-    </>
+      </div>
+      <div className="buttons">
+        <FaPlus
+          className={theme == "Dark" ? `btn-light` : `btn-dark`}
+          type="submit"
+        />
+      </div>
+    </form>
   );
 };
 

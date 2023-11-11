@@ -6,42 +6,26 @@ import Update from "../components/Update";
 import ReactModal from "react-modal";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import "../styles.css";
+import moment from "moment/moment";
 
 const BASE_URL = "http://localhost:3001";
-
-// const colors = {
-//   Personal: "#f43f5e",
-//   Study: "#3b82f6",
-//   Other: "#22c55e",
-//   Fitness: "#ffcc29",
-//   Finance: "#8b45f7",
-//   Background: "#212121",
-//   Theme: "#212121",
-//   Font: "#ffffff",
-// };
-const colors = {
-  Personal: "#f43f5e",
-  Study: "#3b82f6",
-  Other: "#22c55e",
-  Fitness: "#ffcc29",
-  Finance: "#8b45f7",
-  Background: "#e8e8e8",
-  Theme: "#e8e8e8",
-  Font: "black",
-};
 
 const Home = ({ token, setToken }) => {
   const { type } = useParams();
 
+  const [theme, setTheme] = useState("Light");
+
   const [notes, setNotes] = useState([]);
+
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+
   const [selectedNote, setSelectedNote] = useState(null);
   const [modalType, setModalType] = useState("");
 
   const openCreateModal = () => {
     setCreateModalOpen(true);
+    setModalType("Other");
   };
 
   const closeCreateModal = () => {
@@ -56,6 +40,28 @@ const Home = ({ token, setToken }) => {
   const closeUpdateModal = () => {
     setSelectedNote(null);
     setUpdateModalOpen(false);
+  };
+
+  const [noteTypes, setNoteTypes] = useState([]);
+  const [totalNotesCount, setTotalNotesCount] = useState(0);
+
+  const noteCount = () => {
+    axios
+      .get(`${BASE_URL}/note-count`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        setNoteTypes(res.data);
+
+        // Calculate total notes count by summing up the counts of all types
+        const total = res.data.reduce((total, type) => total + type.count, 0);
+        setTotalNotesCount(total);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const fetchNotes = async () => {
@@ -83,42 +89,65 @@ const Home = ({ token, setToken }) => {
     : notes;
 
   return (
-    <div
-      className="home"
-      style={{ backgroundColor: colors["Background"], color: colors["Font"] }}
-    >
+    <div className={`home ${theme}`}>
       <Topbar
         setToken={setToken}
         openCreateModal={openCreateModal}
-        colors={colors}
+        setTheme={setTheme}
+        theme={theme}
       />
       <div class="container">
-        <Sidebar token={token} colors={colors} />
+        <Sidebar
+          token={token}
+          noteTypes={noteTypes}
+          totalNotesCount={totalNotesCount}
+          noteCount={noteCount}
+        />
         <main>
-          {filteredNotes.map((note) => (
-            <div
-              className="note"
-              key={note._id}
-              onClick={() => {
-                openUpdateModal(note._id);
-                setModalType(note.type);
-              }}
-              style={{ backgroundColor: colors[note.type] }}
-            >
-              <strong>{note.title}</strong>
-              <p>{note.content}</p>
-            </div>
-          ))}
+          {filteredNotes.map((note) => {
+            const formattedUpdatedAt = moment(note.updatedAt);
+            const relativeTime = formattedUpdatedAt.fromNow();
+
+            return (
+              <div
+                className={`note ${note.type}`}
+                key={note._id}
+                onClick={() => {
+                  openUpdateModal(note._id);
+                  setModalType(note.type);
+                }}
+              >
+                <div className="front">
+                  <div className="top-right">
+                    <p>{note.type}</p>
+                  </div>
+                  <div className="center">
+                    <p>{note.title}</p>
+                  </div>
+                  <div className="bottom-left">
+                    <p>{relativeTime}</p>
+                  </div>
+                </div>
+                <div className="back">
+                  <p>{note.content.slice(0, 70)}</p>
+                </div>
+              </div>
+            );
+          })}
         </main>
       </div>
       <ReactModal
         isOpen={isCreateModalOpen || isUpdateModalOpen}
         onRequestClose={isUpdateModalOpen ? closeUpdateModal : closeCreateModal}
         contentLabel="Create or Update Note"
-        className="Modal"
+        className={`Modal ${modalType}`}
         style={{
-          content: {
-            backgroundColor: colors[modalType],
+          overlay: {
+            backdropFilter: "blur(3px)",
+            backgroundColor:
+              theme === "Dark"
+                ? "rgba(0, 0, 0, 0.5)"
+                : "rgba(255, 255, 255, 0.5)",
           },
         }}
       >
@@ -128,6 +157,8 @@ const Home = ({ token, setToken }) => {
             closeModal={closeCreateModal}
             fetchNotes={fetchNotes}
             setModalType={setModalType}
+            noteCount={noteCount}
+            theme={theme}
           />
         ) : isUpdateModalOpen ? (
           <Update
@@ -136,6 +167,8 @@ const Home = ({ token, setToken }) => {
             closeModal={closeUpdateModal}
             fetchNotes={fetchNotes}
             setModalType={setModalType}
+            noteCount={noteCount}
+            theme={theme}
           />
         ) : null}
       </ReactModal>
