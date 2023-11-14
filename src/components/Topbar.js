@@ -15,12 +15,28 @@ const Topbar = ({ openCreateModal, setToken, theme, setTheme }) => {
         {theme == "Dark" ? (
           <BsFillSunFill
             className="btn-light"
-            onClick={() => setTheme("Light")}
+            onClick={() => {
+              setTheme("Light");
+              localStorage.setItem("theme", "Light");
+            }}
           />
         ) : (
-          <BiSolidMoon className="btn-dark" onClick={() => setTheme("Dark")} />
+          <BiSolidMoon
+            className="btn-dark"
+            onClick={() => {
+              setTheme("Dark");
+              localStorage.setItem("theme", "Dark");
+            }}
+          />
         )}
-        <div onClick={() => setToken()} className="logout-button">
+        <div
+          onClick={() => {
+            setToken();
+            localStorage.removeItem("token");
+            localStorage.removeItem("theme");
+          }}
+          className="logout-button"
+        >
           Logout
         </div>
       </div>

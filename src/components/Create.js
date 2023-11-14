@@ -51,7 +51,7 @@ const Create = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="inner" onSubmit={handleSubmit}>
       <div className={theme == "Dark" ? "light-input" : "dark-input"}>
         <select
           className={

@@ -21,6 +21,7 @@ const Login = ({ setToken }) => {
         console.log(res);
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("theme", "Dark");
         navigate("/", { replace: true });
       })
       .catch((err) => {
@@ -29,28 +30,38 @@ const Login = ({ setToken }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        required
-        onChange={(event) =>
-          setFormData({ ...formData, email: event.target.value })
-        }
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        required
-        onChange={(event) =>
-          setFormData({ ...formData, password: event.target.value })
-        }
-      />
-      <button type="submit">Submit</button>
-      <Link to="/register">Create a new account.</Link>
-    </form>
+    <>
+      <div className="header">NoteIt</div>
+      <div className="body">
+        <form className="outer" onSubmit={handleSubmit}>
+          <div className="title">Login</div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            required
+            onChange={(event) =>
+              setFormData({ ...formData, email: event.target.value })
+            }
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            required
+            onChange={(event) =>
+              setFormData({ ...formData, password: event.target.value })
+            }
+          />
+          <button className="btn" type="submit">
+            Submit
+          </button>
+          <Link to="/register" className="link">
+            Create a new account.
+          </Link>
+        </form>
+      </div>
+    </>
   );
 };
 

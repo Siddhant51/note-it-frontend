@@ -35,37 +35,47 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Userame"
-        value={formData.username}
-        required
-        onChange={(event) =>
-          setFormData({ ...formData, username: event.target.value })
-        }
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        required
-        onChange={(event) =>
-          setFormData({ ...formData, email: event.target.value })
-        }
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={formData.password}
-        required
-        onChange={(event) =>
-          setFormData({ ...formData, password: event.target.value })
-        }
-      />
-      <button type="submit">Submit</button>
-      <Link to="/login">Already have an account.</Link>
-    </form>
+    <>
+      <div className="header">NoteIt</div>
+      <div className="body">
+        <form className="outer" onSubmit={handleSubmit}>
+          <div className="title">Register</div>
+          <input
+            type="text"
+            placeholder="Userame"
+            value={formData.username}
+            required
+            onChange={(event) =>
+              setFormData({ ...formData, username: event.target.value })
+            }
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            required
+            onChange={(event) =>
+              setFormData({ ...formData, email: event.target.value })
+            }
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            required
+            onChange={(event) =>
+              setFormData({ ...formData, password: event.target.value })
+            }
+          />
+          <button className="btn" type="submit">
+            Submit
+          </button>
+          <Link to="/login" className="link">
+            Already have an account.
+          </Link>
+        </form>
+      </div>
+    </>
   );
 };
 

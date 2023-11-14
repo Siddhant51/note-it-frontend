@@ -13,7 +13,7 @@ const BASE_URL = "http://localhost:3001";
 const Home = ({ token, setToken }) => {
   const { type } = useParams();
 
-  const [theme, setTheme] = useState("Light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "Dark");
 
   const [notes, setNotes] = useState([]);
 
