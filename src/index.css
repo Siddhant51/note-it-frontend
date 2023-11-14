@@ -348,8 +348,9 @@ option{
 .dark-input textarea::placeholder{
   color: var(--font-dark)
 }
-.input textarea::-webkit-scrollbar{
-display: none;}
+textarea::-webkit-scrollbar{
+  display: none;
+}
 form .buttons{
   display: flex;
   justify-content: space-between;
