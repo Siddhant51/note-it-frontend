@@ -45,8 +45,9 @@
   width: 400px;
   padding: 20px;
   border-radius: 50px;
-  background: linear-gradient(145deg, #232323, #1e1e1e);
-  box-shadow:  26px 26px 52px #171717, -26px -26px 52px #2b2b2b;
+  background-color: var(--study-color);
+  /* background: linear-gradient(145deg, #232323, #1e1e1e);
+  box-shadow:  26px 26px 52px #171717, -26px -26px 52px #2b2b2b; */
   gap: 1rem;
 }
 .outer .title{
