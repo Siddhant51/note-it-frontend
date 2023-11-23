@@ -20,6 +20,7 @@
 }
 
 .header{
+  display: flex;
   height: 8vh;
   padding-left: 7%;
   background-color: var(--background-dark);
