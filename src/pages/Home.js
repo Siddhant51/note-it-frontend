@@ -117,8 +117,7 @@ const Home = ({ token, setToken }) => {
                 <div className={`note loading-${theme}`} key={index}></div>
               ))
             : filteredNotes.map((note) => {
-                const formattedUpdatedAt = moment(note.updatedAt);
-                const relativeTime = formattedUpdatedAt.fromNow();
+                const relativeTime = moment(note.updatedAt).fromNow();
 
                 return (
                   <div
