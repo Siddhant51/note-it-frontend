@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
 
-const BASE_URL = "https://noteit-9f0j.onrender.com";
+const BASE_URL = "https://noteit-api-b5ly.onrender.com";
 // const BASE_URL = "http://localhost:3001";
 
 const Update = ({
