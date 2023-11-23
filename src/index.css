@@ -173,8 +173,10 @@
 .sidebar .button {
   display: flex;
   justify-content: space-between;
-  padding: 2vh;
-  border-bottom: 1px solid #393E46;
+  align-items: center;
+  height: 5vh;
+  padding: 8px;
+  /* margin-bottom: 1px; */
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: 600;
@@ -319,6 +321,47 @@ main:hover .note:not(:hover){
   .note {
     width: calc(31% - 20px);
     min-height: 25vh;
+  }
+}
+
+.loading-Light {
+  animation: blink 2.5s infinite;
+  cursor: not-allowed;
+  background-color: var(--background-dark); 
+}
+.loading-Dark {
+  animation: blink 2.5s infinite;
+  cursor: not-allowed;
+  background-color: var(--background-light); 
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 800px) {
+  .note.loading-Light,
+  .note.loading-Dark {
+    width: calc(90% - 20px);
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1200px) {
+  .note.loading-Light,
+  .note.loading-Dark {
+    width: calc(45% - 20px);
+  }
+}
+
+@media (min-width: 1201px) {
+  .note.loading-Light,
+  .note.loading-Dark {
+    width: calc(31% - 20px);
   }
 }
 

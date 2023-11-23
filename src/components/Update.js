@@ -11,7 +11,7 @@ const Update = ({
   closeModal,
   fetchNotes,
   setModalType,
-  notecount,
+  noteCount,
   theme,
 }) => {
   const [formData, setFormData] = useState({
@@ -58,7 +58,7 @@ const Update = ({
       .then((res) => {
         console.log("Note Updated...");
         closeModal();
-        notecount();
+        noteCount();
         fetchNotes();
       })
       .catch((err) => {
@@ -76,8 +76,9 @@ const Update = ({
         })
         .then((res) => {
           console.log("Note Deleted...");
-          fetchNotes();
           closeModal();
+          noteCount();
+          fetchNotes();
         })
         .catch((err) => {
           console.log(err);
@@ -142,7 +143,7 @@ const Update = ({
         />
         <TiTick
           className={theme == "Dark" ? `btn-light` : `btn-dark`}
-          type="submit"
+          onClick={handleSubmit}
         />
       </div>
     </form>

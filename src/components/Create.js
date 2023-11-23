@@ -103,7 +103,7 @@ const Create = ({
       <div className="buttons">
         <FaPlus
           className={theme == "Dark" ? `btn-light` : `btn-dark`}
-          type="submit"
+          onClick={handleSubmit}
         />
       </div>
     </form>

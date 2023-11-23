@@ -23,6 +23,8 @@ const Home = ({ token, setToken }) => {
   const [selectedNote, setSelectedNote] = useState(null);
   const [modalType, setModalType] = useState("");
 
+  const [loading, setLoading] = useState(true);
+
   const openCreateModal = () => {
     setCreateModalOpen(true);
     setModalType("Other");
@@ -76,6 +78,9 @@ const Home = ({ token, setToken }) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -102,38 +107,44 @@ const Home = ({ token, setToken }) => {
           noteTypes={noteTypes}
           totalNotesCount={totalNotesCount}
           noteCount={noteCount}
+          theme={theme}
+          loading={loading}
         />
         <main>
-          {filteredNotes.map((note) => {
-            const formattedUpdatedAt = moment(note.updatedAt);
-            const relativeTime = formattedUpdatedAt.fromNow();
+          {loading
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <div className={`note loading-${theme}`} key={index}></div>
+              ))
+            : filteredNotes.map((note) => {
+                const formattedUpdatedAt = moment(note.updatedAt);
+                const relativeTime = formattedUpdatedAt.fromNow();
 
-            return (
-              <div
-                className={`note ${note.type}`}
-                key={note._id}
-                onClick={() => {
-                  openUpdateModal(note._id);
-                  setModalType(note.type);
-                }}
-              >
-                <div className="front">
-                  <div className="top-right">
-                    <p>{note.type}</p>
+                return (
+                  <div
+                    className={`note ${note.type}`}
+                    key={note._id}
+                    onClick={() => {
+                      openUpdateModal(note._id);
+                      setModalType(note.type);
+                    }}
+                  >
+                    <div className="front">
+                      <div className="top-right">
+                        <p>{note.type}</p>
+                      </div>
+                      <div className="center">
+                        <p>{note.title}</p>
+                      </div>
+                      <div className="bottom-left">
+                        <p>{relativeTime}</p>
+                      </div>
+                    </div>
+                    <div className="back">
+                      <p>{note.content.slice(0, 70)}</p>
+                    </div>
                   </div>
-                  <div className="center">
-                    <p>{note.title}</p>
-                  </div>
-                  <div className="bottom-left">
-                    <p>{relativeTime}</p>
-                  </div>
-                </div>
-                <div className="back">
-                  <p>{note.content.slice(0, 70)}</p>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
         </main>
       </div>
       <ReactModal

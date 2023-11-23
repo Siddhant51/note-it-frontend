@@ -8,8 +8,8 @@ const Login = ({ setToken }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "sid@gmail.com",
+    password: "123456",
   });
 
   const handleSubmit = (event) => {
