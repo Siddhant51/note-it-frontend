@@ -8,7 +8,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment/moment";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://noteit-9f0j.onrender.com";
+// const BASE_URL = "http://localhost:3001";
 
 const Home = ({ token, setToken }) => {
   const { type } = useParams();

@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://noteit-9f0j.onrender.com";
+// const BASE_URL = "http://localhost:3001";
 
 const Register = () => {
   const navigate = useNavigate();

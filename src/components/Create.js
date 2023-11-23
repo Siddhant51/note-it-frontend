@@ -2,7 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "https://noteit-9f0j.onrender.com";
+// const BASE_URL = "http://localhost:3001";
 
 const Create = ({
   token,
