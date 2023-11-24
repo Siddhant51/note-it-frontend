@@ -139,13 +139,15 @@ const Update = ({
       </div>
       <div className="buttons">
         <MdDeleteForever
-          className={theme == "Dark" ? `btn-light` : `btn-dark`}
+          className={`button ${theme === "Dark" ? "btn-light" : "btn-dark"}`}
           onClick={handleDelete}
         />
-        <TiTick
-          className={theme == "Dark" ? `btn-light` : `btn-dark`}
-          onClick={handleSubmit}
-        />
+        <button
+          className={`button ${theme === "Dark" ? "btn-light" : "btn-dark"}`}
+          type="submit"
+        >
+          <TiTick />
+        </button>
       </div>
     </form>
   );
