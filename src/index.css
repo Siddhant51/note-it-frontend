@@ -183,7 +183,6 @@ background-size: cover;
   align-items: center;
   height: 5vh;
   padding: 8px;
-  /* margin-bottom: 1px; */
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-weight: 600;
@@ -218,11 +217,35 @@ main {
   flex-wrap: wrap;
   align-content: flex-start;
   flex: 1; /*Take up remaining horizontal space*/
-  padding: 10px;
+  /* padding: 10px; */
   overflow-y: auto;
 }
 main::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 650px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+  .container::-webkit-scrollbar{
+    display: none;
+  }
+  .sidebar{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    border-top: solid 1px #393E46;
+    border-right: none;
+    height: 8vh;
+  }
+  .sidebar .button{
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.7rem;
+  }
 }
 
 .note {
@@ -232,7 +255,7 @@ main::-webkit-scrollbar {
   justify-content: center;
   border-radius: 20px;
   max-width: 400px;
-  margin: 10px;
+  margin: 12px;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -488,11 +511,11 @@ form .buttons{
   opacity: 0.7;
 }
 
-@media (max-width: 650px) {
+/* @media (max-width: 650px) {
   .sidebar{
     display: none;
   }
-}
+} */
 @media (max-width: 600px) {
   .Modal {
     width: 85%; /* Adjust the width for smaller screens */
