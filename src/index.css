@@ -275,6 +275,8 @@ main:hover .note:not(:hover){
   flex-direction: column;
   justify-content: space-between;
   opacity: 1;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .note:hover .front {
   height: 0vh;
@@ -290,6 +292,7 @@ main:hover .note:not(:hover){
   transition: all 0.3s;
   font-size: 0px;
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 .back p{
   text-align: center;
