@@ -315,6 +315,7 @@ main:hover .note:not(:hover){
   justify-content: center;
   /* height: 15vh; */
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 .center p{
   text-align: center;
