@@ -74,7 +74,7 @@ NoteIt is a feature-rich personal note-taking application that allows users to o
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Siddhant51/note-it.git
+   git clone https://github.com/Siddhant51/note-it-frontend.git
    ```
 
 2. Install backend dependencies:
