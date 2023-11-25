@@ -18,6 +18,7 @@
 - [Frontend Development](#frontend-development)
 - [API Endpoints](#api-endpoints)
 - [Deployment](#deployment)
+- [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 - [Methodology](#methodology)
@@ -75,6 +76,7 @@ NoteIt is a feature-rich personal note-taking application that allows users to o
 
    ```bash
    git clone https://github.com/Siddhant51/note-it-frontend.git
+   git clone https://github.com/Siddhant51/note-it-backend.git
    ```
 
 2. Install backend dependencies:
@@ -141,6 +143,10 @@ NoteIt is a feature-rich personal note-taking application that allows users to o
 - Both backend and frontend are hosted on Render.com.
 - Ensure CORS is configured to allow communication between frontend and backend.
 
+## Contributing
+
+- Contributions are welcome! Fork the repository and submit a pull request. 🤝
+
 ## License
 
 - This project is licensed under the [MIT License](LICENSE).
@@ -201,4 +207,34 @@ NoteIt is a feature-rich personal note-taking application that allows users to o
 2. **CSS Variables for Dynamic Styling and Theming:**
    - Incorporated CSS variables for dynamic theming, allowing users to switch between light and dark modes.
    - Ensured a cohesive and visually appealing design.
+
+
+
+3. **Fully Styled App:**
+   - Styled each component and page for a polished user interface.
+   - Strived for a responsive design to cater to various screen sizes.
+
+### Hosting Workflow
+
+1. **Render.com Setup:**
+   - Hosted the frontend as a static website on Render.com.
+   - Configured parameters, rules, and environment variables for a smooth deployment.
+
+2. **Web Service for Backend:**
+   - Hosted the backend as a web service on Render.com.
+   - Specified environment variables and ensured proper configuration.
+
+### Testing and Corrections
+
+1. **Functional Testing:**
+   - Conducted thorough testing by interacting with all functionalities on the hosted app.
+   - Verified user registration, login, note creation, updates, and deletions.
+
+2. **Bug Identification:**
+   - Actively sought out bugs and issues in the deployed app.
+   - Checked for any discrepancies between local development and hosted environments.
+
+3. **Bug Corrections:**
+   - Addressed and fixed identified bugs promptly.
+   - Introduced loading placeholders to manage server latency and enhance the user experience.
 
