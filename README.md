@@ -1,7 +1,5 @@
 # NoteIt - Your Personal Note-Taking App 📝
 
-![NoteIt](link_to_logo.png)
-
 ## Table of Contents
 
 - [Introduction](#introduction)
