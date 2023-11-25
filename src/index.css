@@ -243,6 +243,7 @@ main::-webkit-scrollbar {
   }
   .sidebar .button{
     justify-content: center;
+    flex-grow: 1;
     flex-wrap: wrap;
     font-size: 0.7rem;
   }
