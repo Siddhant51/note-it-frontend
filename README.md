@@ -20,18 +20,11 @@
 - [Deployment](#deployment)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
-- [Methodology and Workflow](#methodology-and-workflow)
-  - [Backend Development](#backend-development)
-    - [Setting Up the Server](#setting-up-the-server)
-    - [Creating Routes and Controller Functions](#creating-routes-and-controller-functions)
-    - [Implementing Authentication Middleware](#implementing-authentication-middleware)
-    - [Testing API Endpoints](#testing-api-endpoints)
-  - [Frontend Development](#frontend-development-1)
-    - [Setting Up Create-React-App](#setting-up-create-react-app)
-    - [Creating Pages and Components](#creating-pages-and-components)
-    - [Styling with CSS](#styling-with-css)
-  - [CSS Styling and Theming](#css-styling-and-theming)
-  - [Hosting on Render.com](#hosting-on-rendercom)
+- [Methodology](#methodology)
+  - [Backend Development Workflow](#backend-development-workflow)
+  - [Frontend Development Workflow](#frontend-development-workflow)
+  - [CSS Styling Workflow](#css-styling-workflow)
+  - [Hosting Workflow](#hosting-workflow)
   - [Testing and Corrections](#testing-and-corrections)
 
 ## Introduction
@@ -74,7 +67,7 @@ NoteIt is a feature-rich personal note-taking application that allows users to o
 ### Prerequisites
 
 - Node.js and npm installed
-- MongoDB account for database (update the connection string in `.env`)
+- MongoDB account for the database (update the connection string in `.env`)
 
 ### Installation
 
@@ -156,102 +149,56 @@ NoteIt is a feature-rich personal note-taking application that allows users to o
 
 - Special thanks to [OpenAI](https://www.openai.com/) for the incredible GPT-3 model that assisted in various aspects of this project. 🙌
 
+## Methodology
 
-# Methodology and Workflow
+### Backend Development Workflow
 
-## Backend Development
+1. **Setting up the Server:**
+   - Initialized a Node.js server using Express.
+   - Configured middleware for handling JSON requests and enabling CORS.
+   - Connected the server to MongoDB using Mongoose.
 
-### Setting Up the Server
+2. **Creating Routes:**
+   - Defined API routes for user registration, authentication, note creation, updates, and deletions.
+   - Implemented route protection using a custom authentication middleware.
 
-1. **Node.js and Express:**
-   - Initialize the backend with Node.js and set up the server using the Express framework.
+3. **Controller Functions:**
+   - Developed controller functions to handle business logic for each route.
+   - Ensured proper validation and error handling.
 
-2. **Connecting to the Database:**
-   - Establish a connection to MongoDB using Mongoose, ensuring a secure and reliable database for storing notes.
+4. **Testing with Postman:**
+   - Tested each API endpoint using Postman for correctness and reliability.
+   - Checked the integration between the server and MongoDB.
 
-### Creating Routes and Controller Functions
+5. **Full Backend Functionality:**
+   - Integrated all components to ensure the entire backend is fully functional.
+   - Verified the registration, login, note creation, and manipulation processes.
 
-3. **Routing:**
-   - Design RESTful API routes for user authentication, note creation, update, deletion, and other functionalities.
+### Frontend Development Workflow
 
-4. **Controller Functions:**
-   - Develop controller functions to handle the logic for each route, maintaining separation of concerns.
+1. **Setting up Create-React-App:**
+   - Initialized the frontend using Create-React-App for a streamlined project structure.
+   - Ensured proper folder organization for components, pages, and assets.
 
-### Implementing Authentication Middleware
+2. **Protected and Local Routes:**
+   - Implemented protected routes for authenticated users.
+   - Set up local routes for navigation between different sections of the app.
 
-5. **User Authentication:**
-   - Implement user registration and login functionality using JSON Web Tokens (JWT).
+3. **Creating Pages and Components:**
+   - Developed core pages (login, register, home) to serve as the main app views.
+   - Designed reusable components (modal, topbar, sidebar, create, update) for a modular structure.
 
-6. **Authentication Middleware:**
-   - Create middleware functions to secure routes and authenticate requests using JWT.
+4. **Fully Functional App Without Styling:**
+   - Ensured the app is fully functional without any styling.
+   - Focused on functionality before aesthetics.
 
-### Testing API Endpoints
+### CSS Styling Workflow
 
-7. **Postman Testing:**
-   - Thoroughly test all API endpoints using Postman, ensuring correct functionality and error handling.
+1. **Simple External CSS:**
+   - Utilized simple external CSS for styling, focusing on clarity and maintainability.
+   - Employed CSS classes for consistent styling across components.
 
-8. **Backend Functionality Complete:**
-   - Achieve a fully functional backend, capable of handling user registration, authentication, and note management.
-
-## Frontend Development
-
-### Setting Up Create-React-App
-
-9. **React.js:**
-    - Initialize the frontend using Create-React-App for a quick and efficient setup.
-
-### Creating Pages and Components
-
-10. **Protected and Local Routes:**
-    - Implement protected and local routes to control access to certain parts of the app.
-
-11. **Page Creation:**
-    - Develop pages such as login, register, and home, ensuring a seamless navigation experience.
-
-12. **Component Creation:**
-    - Build modular components like modals, topbar, sidebar, create, and update, promoting reusability.
-
-### Styling with CSS
-
-13. **External CSS:**
-    - Utilize simple external CSS with classes to style the app, providing a clean and organized structure.
-
-14. **CSS Variables for Dynamic Styling:**
-    - Implement CSS variables for dynamic theming, allowing users to switch between light and dark themes seamlessly.
-
-15. **Fully Functional App without Styling:**
-    - Achieve a fully functional frontend without focusing on styling intricacies.
-
-## CSS Styling and Theming
-
-16. **Styling Implementation:**
-    - Focus on styling aspects using external CSS, ensuring a visually appealing user interface.
-
-17. **Dynamic Theming:**
-    - Enable dynamic theming with CSS variables, allowing users to personalize the app's appearance.
-
-18. **Fully Styled and Functional App:**
-    - Combine functionality with styling, creating a fully styled and functional app.
-
-## Hosting on Render.com
-
-19. **Backend Hosting:**
-    - Host the backend on Render.com, configuring web services with specified parameters.
-
-20. **Frontend Static Hosting:**
-    - Deploy the frontend as a static website on Render.com, adjusting parameters for a smooth hosting experience.
-
-21. **Setting Environment Variables:**
-    - Configure environment variables for both frontend and backend to ensure proper communication.
-
-## Testing and Corrections
-
-22. **Functional Testing:**
-    - Thoroughly test all functionalities from the hosted app, identifying any potential bugs or issues.
-
-23. **Bug Fixes:**
-    - Address and fix all identified bugs, ensuring a seamless user experience.
-
-24. **Loading Placeholders:**
-    - Implement loading placeholders to enhance user experience during server latency.
+2. **CSS Variables for Dynamic Styling and Theming:**
+   - Incorporated CSS variables for dynamic theming, allowing users to switch between light and dark modes.
+   - Ensured a cohesive and visually appealing design.
 
