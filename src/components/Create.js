@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-
-const BASE_URL = "https://noteit-api-b5ly.onrender.com";
-// const BASE_URL = "http://localhost:3001";
+import { BASE_URL } from "./BaseUrl";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Create = ({
   token,
@@ -45,6 +45,7 @@ const Create = ({
         closeModal();
         noteCount();
         fetchNotes();
+        toast.success("Note Created Successfully.");
       })
       .catch((err) => {
         console.log(err);

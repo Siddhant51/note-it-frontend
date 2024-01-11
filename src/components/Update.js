@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
-
-const BASE_URL = "https://noteit-api-b5ly.onrender.com";
-// const BASE_URL = "http://localhost:3001";
+import { BASE_URL } from "./BaseUrl";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Update = ({
   token,
@@ -61,6 +61,7 @@ const Update = ({
         closeModal();
         noteCount();
         fetchNotes();
+        toast.success("Note Updated Successfully.");
       })
       .catch((err) => {
         console.log(err);
@@ -80,6 +81,7 @@ const Update = ({
           closeModal();
           noteCount();
           fetchNotes();
+          toast.success("Note Deleted Successfully.");
         })
         .catch((err) => {
           console.log(err);

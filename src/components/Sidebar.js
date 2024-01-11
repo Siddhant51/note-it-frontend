@@ -2,9 +2,6 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const BASE_URL = "https://noteit-api-b5ly.onrender.com";
-// const BASE_URL = "http://localhost:3001";
-
 const Sidebar = ({
   token,
   noteTypes,

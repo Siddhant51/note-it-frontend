@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from "../components/BaseUrl";
 
-const BASE_URL = "https://noteit-api-b5ly.onrender.com";
+// const BASE_URL = "https://noteit-api-b5ly.onrender.com";
 // const BASE_URL = "http://localhost:3001";
 
 const Login = ({ setToken }) => {
@@ -23,15 +26,20 @@ const Login = ({ setToken }) => {
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("theme", "Dark");
-        navigate("/", { replace: true });
+        toast.success("Login successful!");
+        setTimeout(() => {
+          navigate("/", { replace: true });
+        }, 4000);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Invalid credentials. Please try again.");
       });
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="header">NoteIt</div>
       <div className="body">
         <form className="outer" onSubmit={handleSubmit}>

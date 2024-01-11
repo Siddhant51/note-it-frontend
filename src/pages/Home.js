@@ -7,9 +7,9 @@ import ReactModal from "react-modal";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment/moment";
-
-const BASE_URL = "https://noteit-api-b5ly.onrender.com";
-// const BASE_URL = "http://localhost:3001";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from "../components/BaseUrl";
 
 const Home = ({ token, setToken }) => {
   const { type } = useParams();
@@ -95,95 +95,101 @@ const Home = ({ token, setToken }) => {
     : notes;
 
   return (
-    <div className={`home ${theme}`}>
-      <Topbar
-        setToken={setToken}
-        openCreateModal={openCreateModal}
-        setTheme={setTheme}
-        theme={theme}
-      />
-      <div class="container">
-        <Sidebar
-          token={token}
-          noteTypes={noteTypes}
-          totalNotesCount={totalNotesCount}
-          noteCount={noteCount}
-          theme={theme}
-          loading={loading}
-        />
-        <main>
-          {loading
-            ? Array.from({ length: 5 }).map((_, index) => (
-                <div className={`note loading-${theme}`} key={index}></div>
-              ))
-            : filteredNotes.map((note) => {
-                const relativeTime = moment(note.updatedAt).fromNow();
+    <>
+      <ToastContainer />
 
-                return (
-                  <div
-                    className={`note ${note.type}`}
-                    key={note._id}
-                    onClick={() => {
-                      openUpdateModal(note._id);
-                      setModalType(note.type);
-                    }}
-                  >
-                    <div className="front">
-                      <div className="top-right">
-                        <p>{note.type}</p>
+      <div className={`home ${theme}`}>
+        <Topbar
+          setToken={setToken}
+          openCreateModal={openCreateModal}
+          setTheme={setTheme}
+          theme={theme}
+        />
+        <div class="container">
+          <Sidebar
+            token={token}
+            noteTypes={noteTypes}
+            totalNotesCount={totalNotesCount}
+            noteCount={noteCount}
+            theme={theme}
+            loading={loading}
+          />
+          <main>
+            {loading
+              ? Array.from({ length: 5 }).map((_, index) => (
+                  <div className={`note loading-${theme}`} key={index}></div>
+                ))
+              : filteredNotes.map((note) => {
+                  const relativeTime = moment(note.updatedAt).fromNow();
+
+                  return (
+                    <div
+                      className={`note ${note.type}`}
+                      key={note._id}
+                      onClick={() => {
+                        openUpdateModal(note._id);
+                        setModalType(note.type);
+                      }}
+                    >
+                      <div className="front">
+                        <div className="top-right">
+                          <p>{note.type}</p>
+                        </div>
+                        <div className="center">
+                          <p>{note.title}</p>
+                        </div>
+                        <div className="bottom-left">
+                          <p>{relativeTime}</p>
+                        </div>
                       </div>
-                      <div className="center">
-                        <p>{note.title}</p>
-                      </div>
-                      <div className="bottom-left">
-                        <p>{relativeTime}</p>
+                      <div className="back">
+                        <p>{note.content.slice(0, 70)}</p>
                       </div>
                     </div>
-                    <div className="back">
-                      <p>{note.content.slice(0, 70)}</p>
-                    </div>
-                  </div>
-                );
-              })}
-        </main>
+                  );
+                })}
+          </main>
+        </div>
+        <ReactModal
+          isOpen={isCreateModalOpen || isUpdateModalOpen}
+          onRequestClose={
+            isUpdateModalOpen ? closeUpdateModal : closeCreateModal
+          }
+          contentLabel="Create or Update Note"
+          className={`Modal ${modalType}`}
+          style={{
+            overlay: {
+              backdropFilter: "blur(3px)",
+              backgroundColor:
+                theme === "Dark"
+                  ? "rgba(0, 0, 0, 0.5)"
+                  : "rgba(255, 255, 255, 0.5)",
+            },
+          }}
+        >
+          {isCreateModalOpen ? (
+            <Create
+              token={token}
+              closeModal={closeCreateModal}
+              fetchNotes={fetchNotes}
+              setModalType={setModalType}
+              noteCount={noteCount}
+              theme={theme}
+            />
+          ) : isUpdateModalOpen ? (
+            <Update
+              token={token}
+              noteId={selectedNote}
+              closeModal={closeUpdateModal}
+              fetchNotes={fetchNotes}
+              setModalType={setModalType}
+              noteCount={noteCount}
+              theme={theme}
+            />
+          ) : null}
+        </ReactModal>
       </div>
-      <ReactModal
-        isOpen={isCreateModalOpen || isUpdateModalOpen}
-        onRequestClose={isUpdateModalOpen ? closeUpdateModal : closeCreateModal}
-        contentLabel="Create or Update Note"
-        className={`Modal ${modalType}`}
-        style={{
-          overlay: {
-            backdropFilter: "blur(3px)",
-            backgroundColor:
-              theme === "Dark"
-                ? "rgba(0, 0, 0, 0.5)"
-                : "rgba(255, 255, 255, 0.5)",
-          },
-        }}
-      >
-        {isCreateModalOpen ? (
-          <Create
-            token={token}
-            closeModal={closeCreateModal}
-            fetchNotes={fetchNotes}
-            setModalType={setModalType}
-            noteCount={noteCount}
-            theme={theme}
-          />
-        ) : isUpdateModalOpen ? (
-          <Update
-            token={token}
-            noteId={selectedNote}
-            closeModal={closeUpdateModal}
-            fetchNotes={fetchNotes}
-            setModalType={setModalType}
-            noteCount={noteCount}
-            theme={theme}
-          />
-        ) : null}
-      </ReactModal>
-    </div>
+    </>
   );
 };
 
